@@ -1,0 +1,1414 @@
+/* متغیرهای اصلی رنگ، فونت و فاصله‌گذاری در کل صفحه */
+:root {
+    color-scheme: light;
+    --color-ink: #29251f;
+    --color-muted: #756d62;
+    --color-paper: hsl(38, 41%, 95%);
+    --color-surface: #fffdf9;
+    --color-soft: hsl(33, 13%, 86%);
+    --color-line: #e6ddd0;
+    --color-gold: #bc8b42;
+    --color-gold-dark: #92672b;
+    --font-body: "Segoe UI", Arial, sans-serif;
+    --font-display: Georgia, "Times New Roman", serif;
+    --content-width: 1200px;
+    --page-gutter: clamp(1.25rem, 5vw, 5rem);
+    --shadow-card: 0 16px 42px rgb(46 35 23 / 8%);
+}
+
+/* تنظیمات پایه برای محاسبه اندازه عناصر و پیمایش صفحه */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+
+body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* رنگ‌بندی جایگزین برای حالت تیره */
+body.dark-mode,
+body[data-theme="dark"] {
+    color-scheme: dark;
+    --color-ink: #f5eee3;
+    --color-muted: #c1b6a7;
+    --color-paper: #211e1a;
+    --color-surface: #2b2722;
+    --color-soft: #363027;
+    --color-line: #4a4035;
+    --color-gold: #d3a75d;
+    --color-gold-dark: #e1bb79;
+    --color-wine: #e4a095;
+    --shadow-card: 0 16px 42px rgb(0 0 0 / 22%);
+}
+
+/* یکسان‌سازی نمایش عناصر و کنترل‌های تعاملی */
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button,
+a,
+input,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    color: inherit;
+}
+
+/* نمایش واضح فوکوس برای کار با صفحه‌کلید */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 4px;
+}
+
+::selection {
+    background: var(--color-gold);
+    color: #fff;
+      
+}
+
+/* پیوند دسترسی سریع که هنگام فوکوس دیده می‌شود */
+.skip-link {
+    position: fixed;
+    z-index: 20;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.7rem 1rem;
+    transform: translateY(-160%);
+    border-radius: 0.25rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* سربرگ چسبان، نشان تجاری و کنترل‌های بالای صفحه */
+.site-header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-paper);
+ 
+}
+
+.header-inner {
+    display: flex;
+    width: min(100% - var(--page-gutter) * 2, 1440px);
+    min-height: 82px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 auto;
+     
+}
+
+.brand {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+    color: var(--color-gold);
+    
+}
+
+.brand-name {
+    font-size: 0.81rem;
+    font-weight: 750;
+    letter-spacing: 0.13em;
+    line-height: 1.2;
+    
+}
+
+.brand-name span {
+    color: var(--color-gold-dark);
+ 
+   
+}
+
+.primary-navigation,
+.header-actions {
+    display: flex;
+    align-items: center;
+     
+   
+}
+
+.primary-navigation {
+    gap: clamp(1.25rem, 3vw, 2.8rem);
+    padding: 0.65rem 1.15rem;
+    border-radius: 3px;
+    
+}
+
+.primary-navigation a,
+.footer-links a {
+    transition: color 180ms ease;
+}
+
+.primary-navigation a {
+    color: var(--color-ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+     
+}
+
+.primary-navigation a:hover {
+    color: #e4bd7c;
+}
+
+.footer-links a:hover {
+    color: var(--color-gold-dark);
+    
+}
+
+.header-actions {
+    gap: 0.75rem;
+   
+}
+
+.icon-button {
+    display: inline-grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 180ms ease, border-color 180ms ease;
+}
+
+.icon-button:hover {
+    border-color: var(--color-gold);
+    background: var(--color-soft);
+}
+
+.cart-button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.45rem 0.35rem 1rem;
+    border: 0;
+    border-radius: 99px;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 650;
+     background-color: hwb(56 11% 8%);
+}
+
+.cart-count {
+    display: grid;
+    min-width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-gold);
+     
+    color: #fff;
+    
+    font-size: 0.75rem;
+     
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* بخش آغازین با تصویر پس‌زمینه و لایه تیره برای خوانایی متن */
+.hero {
+    position: relative;
+    display: flex;
+    min-height: min(760px, calc(100svh - 82px));
+    align-items: center;
+    overflow: hidden;
+     background-color: hwb(56 11% 8%);
+    background: #352b23;
+    color: #fff;
+}
+
+.hero::after {
+    position: absolute;
+    z-index: 0;
+    background: linear-gradient(90deg, rgb(20 17 14 / 82%) 0%, rgb(20 17 14 / 62%) 44%, rgb(20 17 14 / 11%) 100%);
+    content: "";
+    inset: 0;
+}
+
+.hero-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 54%;
+    inset: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: min(100% - var(--page-gutter) * 2, var(--content-width));
+    margin: 0 auto;
+    padding: 6rem 0 7rem;
+   
+}
+
+/* عنوان‌های کوچک، تیترها و دکمه‌های فراخوان */
+.eyebrow {
+    margin: 0 0 1rem;
+    color: var(--color-gold-dark);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.18em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.hero .eyebrow {
+    color: #e4bd7c;
+    
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1,
+h2,
+.dish-card h3,
+.menu-card h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+}
+
+.hero h1 {
+    max-width: 720px;
+    margin-bottom: 1.35rem;
+    font-size: clamp(2rem, 6vw, 5rem);
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+}
+
+.hero-description {
+    max-width: 490px;
+    margin-bottom: 2rem;
+    color: rgb(255 255 255 / 84%);
+    font-size: clamp(1rem, 1.5vw, 1rem);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.35rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    background: var(--color-gold);
+    color: #21180d;
+}
+
+.button-primary:hover {
+    background: #d2a354;
+}
+
+.button-secondary {
+    border-color: rgb(255 255 255 / 55%);
+    background: rgb(255 255 255 / 5%);
+    color: #fff;
+}
+
+.button-secondary:hover {
+    background: rgb(255 255 255 / 15%);
+}
+
+.button-outline {
+    border-color: var(--color-gold);
+    background: transparent;
+    color: var(--color-ink);
+}
+
+.button-outline:hover {
+    background: var(--color-gold);
+    color: #21180d;
+}
+
+.hero-note {
+    margin: 2.4rem 0 0;
+    color: rgb(255 255 255 / 76%);
+    font-size: 0.79rem;
+    letter-spacing: 0.03em;
+}
+
+.hero-note span {
+    margin-right: 0.45rem;
+    color: #e4bd7c;
+}
+
+.hero-scroll {
+    position: absolute;
+    z-index: 1;
+    right: var(--page-gutter);
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: rgb(255 255 255 / 82%);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-scroll span {
+    color: #e4bd7c;
+    font-size: 1.25rem;
+}
+
+/* فاصله‌گذاری عمومی بخش‌ها و کارت غذاهای پیشنهادی */
+.section {
+    padding: clamp(5rem, 9vw, 8rem) var(--page-gutter);
+}
+
+.section-heading {
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.section-heading h2,
+.story-content h2,
+.experience-copy h2 {
+    margin-bottom: 1rem;
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+}
+
+.section-heading > p:last-child,
+.menu-heading > p,
+.story-content > p:not(.eyebrow),
+.experience-copy > p:not(.eyebrow) {
+    color: var(--color-muted);
+}
+
+.section-heading > p:last-child {
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.dish-grid,
+.menu-grid {
+    display: grid;
+    width: min(100%, var(--content-width));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+    margin: 0 auto;
+}
+
+.dish-card,
+.menu-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+}
+
+.dish-image-link {
+    display: block;
+    overflow: hidden;
+}
+
+.dish-image-link img {
+    width: 100%;
+    aspect-ratio: 1.42;
+    object-fit: cover;
+    transition: transform 450ms ease;
+}
+
+.dish-image-link:hover img {
+    transform: scale(1.045);
+}
+
+.dish-card-content {
+    padding: 1.5rem 1.55rem 1.7rem;
+}
+
+.dish-category {
+    margin-bottom: 0.55rem;
+    color: var(--color-gold-dark);
+    font-size: 0.67rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.dish-card h3 {
+    margin-bottom: 0.55rem;
+    font-size: 1.55rem;
+    line-height: 1.2;
+}
+
+.dish-card-content > p:not(.dish-category) {
+    min-height: 3.2em;
+    margin-bottom: 1.15rem;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+}
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-wine);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.text-link span,
+.contact-detail a span,
+.whatsapp-link span {
+    transition: transform 180ms ease;
+}
+
+.text-link:hover span,
+.contact-detail a:hover span,
+.whatsapp-link:hover span {
+    transform: translate(2px, -2px);
+}
+
+/* بخش معرفی داستان رستوران همراه با تصویر */
+.story-section {
+    display: grid;
+    min-height: 610px;
+    grid-template-columns: 1fr 1fr;
+    background: var(--color-soft);
+}
+
+.story-image-wrap {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+.story-image-wrap img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+}
+
+.image-caption {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.2rem;
+    margin: 0;
+    padding: 0.65rem 0.9rem;
+    background: rgb(32 27 21 / 74%);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.story-content {
+    align-self: center;
+    max-width: 680px;
+    padding: clamp(3rem, 8vw, 7rem);
+}
+
+.story-content h2 {
+    font-size: clamp(2.65rem, 4.6vw, 4.3rem);
+}
+
+.story-content > p:not(.eyebrow) {
+    max-width: 510px;
+    margin-bottom: 1rem;
+}
+
+.story-content .button {
+    margin-top: 1rem;
+}
+
+/* ابزارهای جست‌وجو، فیلترها و کارت‌های منوی غذا */
+.menu-section {
+    background: var(--color-paper);
+}
+
+.menu-heading {
+    display: flex;
+    max-width: var(--content-width);
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    text-align: left;
+}
+
+.menu-heading h2 {
+    margin-bottom: 0;
+}
+
+.menu-heading > p {
+    max-width: 440px;
+    margin-bottom: 0.35rem;
+}
+
+.menu-tools {
+    display: flex;
+    width: min(100%, var(--content-width));
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin: 0 auto 2rem;
+}
+
+.search-field {
+    display: flex;
+    min-width: min(100%, 260px);
+    min-height: 46px;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-muted);
+}
+
+.search-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.search-field input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-ink);
+    font-size: 0.84rem;
+}
+
+.search-field input:focus-visible {
+    outline: 0;
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.filter-button {
+    min-height: 38px;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--color-line);
+    border-radius: 99px;
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    font-size: 0.74rem;
+    font-weight: 650;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.filter-button:hover,
+.filter-button.is-active {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-paper);
+}
+
+.menu-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.menu-card img {
+    width: 100%;
+    aspect-ratio: 1.45;
+    object-fit: cover;
+}
+
+.menu-card-content {
+    display: flex;
+    min-height: 218px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.05rem 1.1rem;
+}
+
+.menu-card-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.menu-card h3 {
+    margin-bottom: 0.55rem;
+    font-size: 1.18rem;
+    line-height: 1.2;
+}
+
+.price {
+    flex: 0 0 auto;
+    color: var(--color-gold-dark);
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+
+.menu-card-content > p {
+    margin-bottom: 1rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.add-to-cart-button {
+    display: flex;
+    min-height: 39px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--color-line);
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.add-to-cart-button span {
+    color: var(--color-gold-dark);
+    font-size: 1.15rem;
+}
+
+.add-to-cart-button:hover {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-paper);
+}
+
+.empty-menu-message {
+    width: min(100%, var(--content-width));
+    margin: 2rem auto 0;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+/* بخش تجربه حضور در رستوران و گالری تصاویر */
+.experience-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: center;
+    gap: clamp(3rem, 8vw, 8rem);
+    padding: clamp(5rem, 9vw, 8rem) var(--page-gutter);
+    background: var(--color-soft);
+}
+
+.experience-copy {
+    width: min(100%, 440px);
+    justify-self: end;
+}
+
+.experience-copy h2 {
+    font-size: clamp(2.6rem, 4.6vw, 4.35rem);
+}
+
+.experience-copy > p:not(.eyebrow) {
+    margin-bottom: 1.4rem;
+}
+
+.experience-gallery {
+    display: grid;
+    width: min(100%, 680px);
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+.experience-gallery img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+}
+
+.experience-gallery img + img {
+    height: 300px;
+}
+
+/* اطلاعات تماس و فرم پیام یا درخواست رزرو */
+.contact-section {
+    background: var(--color-paper);
+}
+
+.contact-details {
+    display: grid;
+    width: min(100%, var(--content-width));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0 auto 2rem;
+}
+
+.contact-detail {
+    padding: 1.5rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+}
+
+.contact-detail h3,
+.reservation-form h3,
+.footer-links h2 {
+    margin-bottom: 0.8rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+}
+
+.contact-detail p,
+.contact-detail address {
+    margin-bottom: 0.55rem;
+    color: var(--color-muted);
+    font-size: 0.87rem;
+    font-style: normal;
+}
+
+.contact-detail p span {
+    float: right;
+    color: var(--color-ink);
+}
+
+.contact-detail > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+    color: var(--color-wine);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.reservation-form {
+    display: grid;
+    width: min(100%, 760px);
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid var(--color-line);
+    background: var(--color-soft);
+}
+
+.reservation-form h3 {
+    grid-column: 1 / -1;
+    margin-bottom: 0.1rem;
+    font-size: 1.65rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-row:nth-of-type(3) {
+    grid-column: 1 / -1;
+}
+
+.form-row label {
+    color: var(--color-muted);
+    font-size: 0.76rem;
+    font-weight: 650;
+}
+
+.form-row input,
+.form-row textarea {
+    width: 100%;
+    min-height: 45px;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    resize: vertical;
+}
+
+.reservation-form .button {
+    justify-self: start;
+}
+
+.form-feedback {
+    align-self: center;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+}
+
+/* پابرگ، پیوندهای اجتماعی و اطلاعات انتهایی صفحه */
+.site-footer {
+    padding: 4rem var(--page-gutter) 1.25rem;
+    background: #28231d;
+    color: #f7f1e7;
+}
+
+.footer-main,
+.footer-bottom {
+    width: min(100%, var(--content-width));
+    margin: 0 auto;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+}
+
+.site-footer .brand-mark {
+    color: #d1a153;
+}
+
+.site-footer .brand-name span {
+    color: #d1a153;
+}
+
+.footer-brand > p {
+    max-width: 300px;
+    margin: 1rem 0 0;
+    color: #c4b9aa;
+    font-size: 0.88rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+}
+
+.footer-links h2 {
+    margin-bottom: 0.4rem;
+    font-size: 1.15rem;
+}
+
+.footer-links a {
+    color: #c4b9aa;
+    font-size: 0.83rem;
+}
+
+.footer-links .whatsapp-link {
+    color: #e4bd7c;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgb(255 255 255 / 16%);
+    color: #b7ad9f;
+    font-size: 0.74rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-bottom a:hover {
+    color: #fff;
+}
+
+/* پنجره سبد سفارش و محتوای خلاصه خرید */
+.cart-dialog {
+    width: min(92vw, 520px);
+    max-height: min(85vh, 760px);
+    padding: 1.5rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: 0 24px 80px rgb(0 0 0 / 28%);
+}
+
+.cart-dialog::backdrop {
+    background: rgb(24 20 16 / 58%);
+    backdrop-filter: blur(3px);
+}
+
+.dialog-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.dialog-heading .eyebrow {
+    margin-bottom: 0.35rem;
+}
+
+.dialog-heading h2 {
+    margin-bottom: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.cart-items {
+    min-height: 100px;
+    padding: 1rem 0;
+}
+
+.empty-cart-message {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+}
+
+.cart-summary {
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line);
+}
+
+.cart-summary > p {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-muted);
+}
+
+.cart-summary strong {
+    color: var(--color-ink);
+}
+
+.checkout-button {
+    width: 100%;
+}
+
+.checkout-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+}
+
+/* متن پنهان بصری برای دسترسی‌پذیری صفحه‌خوان‌ها */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+/* چیدمان مناسب نمایشگرهای متوسط و تبلت */
+@media (max-width: 1000px) {
+    .header-inner {
+        gap: 1rem;
+    }
+
+    .primary-navigation {
+        gap: 1.2rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dish-grid {
+        gap: 1rem;
+    }
+
+    .dish-card-content {
+        padding: 1.25rem;
+    }
+
+    .experience-section {
+        gap: 3rem;
+    }
+}
+
+/* چیدمان موبایل، منوی جمع‌شونده و ستون‌های باریک‌تر */
+@media (max-width: 720px) {
+    :root {
+        --page-gutter: 1.25rem;
+    }
+
+    html {
+        scroll-padding-top: 5rem;
+    }
+
+    .header-inner {
+        min-height: 70px;
+    }
+
+    .brand-mark {
+        width: 35px;
+        height: 35px;
+    }
+
+    .brand-name {
+        font-size: 0.72rem;
+    }
+
+    .primary-navigation {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem var(--page-gutter) 1rem;
+        border-bottom: 1px solid #e6ddd0;
+        border-radius: 0;
+        background: #fff;
+    }
+
+    .primary-navigation.is-open {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .primary-navigation a {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e6ddd0;
+        color: #29251f;
+    }
+
+    .menu-toggle {
+        display: inline-grid;
+    }
+
+    .header-actions {
+        gap: 0.45rem;
+    }
+
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+    }
+
+    .cart-button {
+        min-height: 38px;
+        gap: 0.4rem;
+        padding-left: 0.75rem;
+        font-size: 0.78rem;
+    }
+
+    .cart-count {
+        min-width: 27px;
+        height: 27px;
+    }
+
+    .hero {
+        min-height: 690px;
+        min-height: min(760px, calc(100svh - 70px));
+    }
+
+    .hero::after {
+        background: linear-gradient(90deg, rgb(20 17 14 / 78%), rgb(20 17 14 / 38%));
+    }
+
+    .hero-content {
+        padding: 5rem 0 6rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.6rem, 14vw, 5.7rem);
+    }
+
+    .hero-scroll {
+        right: var(--page-gutter);
+        bottom: 1.3rem;
+        font-size: 0.64rem;
+    }
+
+    .section {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .section-heading {
+        margin-bottom: 2rem;
+    }
+
+    .dish-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+    }
+
+    .dish-image-link img {
+        aspect-ratio: 1.7;
+    }
+
+    .dish-card-content > p:not(.dish-category) {
+        min-height: 0;
+    }
+
+    .story-section {
+        grid-template-columns: 1fr;
+    }
+
+    .story-image-wrap {
+        min-height: 370px;
+        max-height: 500px;
+    }
+
+    .story-content {
+        padding: 3.5rem var(--page-gutter) 4rem;
+    }
+
+    .menu-heading {
+        display: block;
+        text-align: center;
+    }
+
+    .menu-heading h2 {
+        margin-bottom: 1rem;
+    }
+
+    .menu-heading > p {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .menu-tools {
+        align-items: stretch;
+    }
+
+    .search-field {
+        width: 100%;
+    }
+
+    .category-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0.2rem 0.1rem 0.55rem;
+        scrollbar-width: thin;
+    }
+
+    .filter-button {
+        flex: 0 0 auto;
+    }
+
+    .experience-section {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .experience-copy {
+        width: min(100%, 560px);
+        justify-self: start;
+    }
+
+    .experience-gallery {
+        width: 100%;
+    }
+
+    .experience-gallery img {
+        height: 310px;
+    }
+
+    .experience-gallery img + img {
+        height: 245px;
+    }
+
+    .contact-details {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation-form {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation-form h3,
+    .form-row:nth-of-type(3) {
+        grid-column: auto;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.25rem 1.5rem;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+/* تنظیمات تکمیلی برای گوشی‌های کوچک */
+@media (max-width: 460px) {
+    .header-inner {
+        width: calc(100% - 1.5rem);
+    }
+
+    .brand {
+        gap: 0.4rem;
+    }
+
+    .brand-mark {
+        width: 31px;
+        height: 31px;
+    }
+
+    .brand-name {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+    }
+
+    .theme-toggle {
+        display: none;
+    }
+
+    .hero {
+        min-height: 660px;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.35rem, 15vw, 4.5rem);
+    }
+
+    .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+        max-width: 280px;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-card {
+        display: grid;
+        grid-template-columns: 38% 1fr;
+    }
+
+    .menu-card img {
+        height: 100%;
+        min-height: 210px;
+        aspect-ratio: auto;
+    }
+
+    .menu-card-content {
+        min-height: 210px;
+        padding: 0.85rem;
+    }
+
+    .menu-card-title {
+        flex-wrap: wrap;
+        gap: 0.1rem 0.5rem;
+    }
+
+    .menu-card h3 {
+        font-size: 1.06rem;
+    }
+
+    .menu-card-content > p {
+        font-size: 0.73rem;
+    }
+
+    .experience-gallery {
+        gap: 0.6rem;
+    }
+
+    .experience-gallery img {
+        height: 245px;
+    }
+
+    .experience-gallery img + img {
+        height: 195px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+}
+
+/* کاهش انیمیشن‌ها برای کاربرانی که حرکت کمتر را ترجیح می‌دهند */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
